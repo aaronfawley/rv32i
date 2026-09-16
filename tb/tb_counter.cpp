@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     }
 
     trace->close();
+    dut->final();
+    printf("done, count = %d\n", dut->count);
     delete dut;
-    printf("done, count = %d\n", dut ? 0 : 0);
-    return 0;
 }
