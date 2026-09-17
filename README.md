@@ -18,8 +18,8 @@ conditional branching all function in the assembled core.
 | `addi` | Executes |
 | `add`  | Executes |
 | `beq`  | Executes — verified taking a forward branch |
-| `lw`   | Wired, not yet exercised by a test program |
-| `sw`   | Wired, not yet exercised by a test program |
+| `lw`   | Executes |
+| `sw`   | Executes |
 
 The ALU implements all ten RV32I arithmetic and logic operations (add, sub,
 and, or, xor, sll, srl, sra, slt, sltu), and the immediate generator handles all
