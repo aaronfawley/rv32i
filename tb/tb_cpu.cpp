@@ -19,10 +19,9 @@ int main(int argc, char** argv) {
     tick();
 
     dut->rst_n = 1;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 30; i++) {
         printf("pc = %08x   result = %08x\n", dut->debug_pc, dut->debug_reg);
         tick();
-        printf("pc = %08x   result = %08x\n", dut->debug_pc, dut->debug_reg);
     }
 
 

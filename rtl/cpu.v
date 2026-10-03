@@ -2,7 +2,8 @@ module cpu(
     input clk,
     input rst_n,
     output [31:0] debug_pc,
-    output [31:0] debug_reg
+    output [31:0] debug_reg,
+    output [31:0] debug_wb
 );
 wire [31:0] pc_out;
 wire [31:0] instruction;
@@ -20,6 +21,7 @@ wire       reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch;
 wire        zero_flag;
 assign debug_pc = pc_out;
 assign debug_reg = alu_result;
+assign debug_wb = write_back;
 pc pc_inst (
     .clk        (clk),
     .rst_n      (rst_n),
