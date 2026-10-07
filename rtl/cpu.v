@@ -10,15 +10,18 @@ wire [31:0] instruction;
 wire [31:0] rs1_data, rs2_data;
 wire [31:0] imm;
 wire [31:0] alu_result;
+wire [31:0] alu_a = (a_src == 2'b01) ? 32'b0 : (a_src == 2'b10) ? pc_out : rs1_data;
 wire [31:0] alu_b = alu_src ? imm : rs2_data;
 wire [31:0] write_back = mem_to_reg ? mem_read_data : alu_result;
 wire [3:0] alu_op;
 wire [31:0] mem_read_data;
 wire [31:0] br_targ = pc_out + imm;
+wire [1:0] a_src;
 wire [2:0] imm_sel;
-wire take_branch = branch && zero_flag;
+wire branch_inv;
 wire       reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch;
 wire        zero_flag;
+wire take_branch = branch && (branch_inv ? !zero_flag : zero_flag);
 assign debug_pc = pc_out;
 assign debug_reg = alu_result;
 assign debug_wb = write_back;
@@ -61,11 +64,13 @@ decoder decoder_inst(
     .mem_read   (mem_read),
     .mem_write  (mem_write),
     .mem_to_reg (mem_to_reg),
-    .branch     (branch)
+    .branch     (branch),
+    .branch_inv (branch_inv),
+    .a_src      (a_src)
 );
 
 alu alu_inst(
-    .a          (rs1_data),
+    .a          (alu_a),
     .b          (alu_b),
     .alu_op     (alu_op),
     .out        (alu_result),
